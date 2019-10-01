@@ -33,6 +33,11 @@ backlog = 4096
 max_allowed_secret_in_bytes = 10000
 max_allowed_request_size_in_bytes = 1000000
 
+
+[oslo_policy]
+policy_file = /etc/barbican/policy.json
+
+
 {{ if eq .Values.postgresql.enabled false }}
 sql_connection = {{ include "db_url_mysql" . }}
 {{ else }}
