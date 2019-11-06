@@ -36,33 +36,34 @@ spec:
         configmap-etc-hash: {{ include (print $.Template.BasePath "/configmap-etc.yaml") . | sha256sum }}
         configmap-bin-hash: {{ include (print $.Template.BasePath "/configmap-bin.yaml") . | sha256sum }}
     spec:
+{{ tuple . "keystone" "keystone-api" | include "kubernetes_pod_anti_affinity" | indent 6 }}
 {{- if .Values.rbac.enabled }}
       serviceAccountName: keystone
 {{- end }}
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 10
-            podAffinityTerm:
-              topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchExpressions:
-                - key: name
-                  operator: In
-                  values:
-                  - keystone-api
-                - key: system
-                  operator: In
-                  values:
-                  - openstack
-                - key: component
-                  operator: In
-                  values:
-                  - keystone
-                - key: type
-                  operator: In
-                  values:
-                  - api
+      # affinity:
+      #   podAntiAffinity:
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #     - weight: 10
+      #       podAffinityTerm:
+      #         topologyKey: kubernetes.io/hostname
+      #         labelSelector:
+      #           matchExpressions:
+      #           - key: name
+      #             operator: In
+      #             values:
+      #             - keystone-api
+      #           - key: system
+      #             operator: In
+      #             values:
+      #             - openstack
+      #           - key: component
+      #             operator: In
+      #             values:
+      #             - keystone
+      #           - key: type
+      #             operator: In
+      #             values:
+      #             - api
       terminationGracePeriodSeconds: {{ .Values.api.terminationGracePeriodSeconds | default "30" }}
       initContainers:
       - name: kubernetes-entrypoint

@@ -30,6 +30,7 @@ spec:
         configmap-etc-hash: {{ include (print $.Template.BasePath "/configmap-etc.yaml") . | sha256sum }}
         configmap-bin-hash: {{ include (print $.Template.BasePath "/configmap-bin.yaml") . | sha256sum }}
     spec:
+{{ tuple . "keystone" "keystone-cron" | include "kubernetes_pod_anti_affinity" | indent 6 }}
 {{- if .Values.rbac.enabled }}
       serviceAccountName: keystone
 {{- end }}

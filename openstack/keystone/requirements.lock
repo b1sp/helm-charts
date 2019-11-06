@@ -16,6 +16,9 @@ dependencies:
   version: 0.1.2
 - name: mysql_metrics
   repository: file://../../common/mysql_metrics
-  version: 0.1.0
-digest: sha256:ab66859a04cd4248c17ddba492c70aa52f979a92366941aa8cb020f2f88a9282
-generated: 2019-09-26T15:20:41.363243573+02:00
+  version: 0.1.1
+- name: utils
+  repository: file://../../openstack/utils
+  version: 0.1.1
+digest: sha256:ee658f82bf0d2fe8df63ad580cc089c4c65428bd45e9b4ca887c663b6c040f56
+generated: 2019-11-06T14:39:14.539566+05:30
